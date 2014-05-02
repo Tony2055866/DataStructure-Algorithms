@@ -13,20 +13,28 @@ using namespace std;
 
 class Solution {
 public:
-	//直接的实现就是用大小为 32的数组来记录所有 位上的和。
+	//依次计算每个位上的和，然后 %3
     int singleNumber(int A[], int n) {
-    	int ans;
-
-    	return 0;
+    	int cnt, ans = 0;
+    	for(int i=0; i<32; i++){
+    		cnt = 0;
+    		int ibit = (1<<i);
+    		for(int j=0; j<n; j++){
+    			cnt += ( (A[j] & ibit) > 0 );
+    		}
+    		ans |= ( (cnt%3) << i);
+    	}
+    	return ans;
     }
 
-    int singleNumberA(int A[], int n) {
-
-
-    }
 };
 
 int main() {
+	int arr[] = {12, 1, 12, 3, 12, 1, 1, 2, 3, 3};
+	Solution s;
+	int size = sizeof(arr)/sizeof(arr[0]);
+	int ans = s.singleNumber(arr,size );
 
+	cout << ans << endl;
 	return 0;
 }
