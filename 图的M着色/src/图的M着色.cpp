@@ -1,9 +1,9 @@
 //============================================================================
-// Name        : Í¼µÄM×ÅÉ«.cpp
+// Name        : å›¾çš„Mç€è‰².cpp
 // Author      : Gaotong
 // Version     :
 // Copyright   : www.acmerblog.com
-// Description : Ëã·¨²¢²»ÍêÈ«ÕıÈ·£¡£¡
+// Description : è´ªå¿ƒç®—æ³•ï¼Œä¸èƒ½ä¿è¯æœ€ä¼˜è§£
 //============================================================================
 
 #include <fstream>
@@ -13,30 +13,30 @@
 #include <algorithm>
 using namespace std;
 
-int map[10][10];//ÁÚ½Ó¾ØÕó
+int map[10][10];//é‚»æ¥çŸ©é˜µ
 
-typedef struct Node{ //¶¨Òå½Úµã½á¹¹Ìå
-   int index; //±àºÅ
-   int degree; //¶È
-   int color; //¸Ä½ÚµãµÄÑÕÉ«
+typedef struct Node{ //å®šä¹‰èŠ‚ç‚¹ç»“æ„ä½“
+   int index; //ç¼–å·
+   int degree; //åº¦
+   int color; //æ”¹èŠ‚ç‚¹çš„é¢œè‰²
 } Node;
 
 Node nodes[10];
 
-bool com(Node node1,Node node2) { //°´¶È´Ó¸ßµ½µÍÅÅĞò
+bool com(Node node1,Node node2) { //æŒ‰åº¦ä»é«˜åˆ°ä½æ’åº
    return node1.degree > node2.degree;
 }
 
-bool com2(Node node1,Node node2) { //°´¶È´Ó¸ßµ½µÍÅÅĞò
+bool com2(Node node1,Node node2) { //æŒ‰åº¦ä»é«˜åˆ°ä½æ’åº
    return node1.index < node2.index;
 }
 
 int main() {
    ifstream read;
-   read.open("map.data");//map.dataÊÇ´æ·ÅÊı¾İµÄÎÄ¼şÃû
+   read.open("map.data");//map.dataæ˜¯å­˜æ”¾æ•°æ®çš„æ–‡ä»¶å
    int m, n;
    while (read >> m>> n) {
-      for (int i = 0; i < m; i++) {//¶ÁÈëÊı¾İ
+      for (int i = 0; i < m; i++) {//è¯»å…¥æ•°æ®
          int degree = 0;
          for (int j = 0; j < n; j++) {
             read>> map[i][j];
@@ -48,25 +48,25 @@ int main() {
          nodes[i].color = 0;
       }
 
-      //ÅÅĞò
+      //æ’åº
 //      sort(nodes,nodes + m, com);
 //      for(int i=0; i<m;i++)
 //    	  cout << nodes[i].index << " ";
 //      cout << endl;
 
-      int k = 0;//K ´ú±íµÚ¼¸ÖÖÑÕÉ«
+      int k = 0;//K ä»£è¡¨ç¬¬å‡ ç§é¢œè‰²
       while (true) {
          k++;
          int i;
-         for (i = 0; i < m; i++){//ÏÈÕÒµ½µÚÒ»¸öÎ´×ÅÉ«µÄ½Úµã
+         for (i = 0; i < m; i++){//å…ˆæ‰¾åˆ°ç¬¬ä¸€ä¸ªæœªç€è‰²çš„èŠ‚ç‚¹
             if (nodes[i].color == 0) {
                 nodes[i].color = k;
                 break;
             }
          }
-         if (i == m)//Ñ­»·ÍË³öµÄÌõ¼ş,ËùÓĞ½Úµã¶¼ÒÑ×ÅÉ«
+         if (i == m)//å¾ªç¯é€€å‡ºçš„æ¡ä»¶,æ‰€æœ‰èŠ‚ç‚¹éƒ½å·²ç€è‰²
             break;
-         //ÔÙ°ÑËùÓĞ²»ºÍ¸Ã½ÚµãÏàÁÚµÄ½Úµã×ÅÏàÍ¬µÄÑÕÉ«
+         //å†æŠŠæ‰€æœ‰ä¸å’Œè¯¥èŠ‚ç‚¹ç›¸é‚»çš„èŠ‚ç‚¹ç€ç›¸åŒçš„é¢œè‰²
          for(int j=0; j<m; j++){
             if(nodes[j].color ==0 &&map[nodes[i].index][nodes[j].index] == 0
                    &&i!=j)
@@ -74,11 +74,11 @@ int main() {
          }
       }
 
-      //Êä³ö½á¹û£º
+      //è¾“å‡ºç»“æœï¼š
       sort(nodes,nodes + m, com2);
-	cout << "¹²ĞèÒª" << k-1 << "ÖÖÑÕÉ«" << endl;
+	cout << "å…±éœ€è¦" << k-1 << "ç§é¢œè‰²" << endl;
       for (int i = 0; i < m; i++)
-         cout<< "½Úµã£º"<<nodes[i].index <<":×ÅÉ«" << nodes[i].color <<endl;
+         cout<< "èŠ‚ç‚¹ï¼š"<<nodes[i].index <<":ç€è‰²" << nodes[i].color <<endl;
       return 0;
    }
 }
